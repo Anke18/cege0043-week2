@@ -36,40 +36,38 @@
 		
 	</script>
 
-	<script >
+	<script>
 	// create a variable that will hold the XMLHttpRequest() - outside a function - global
 	var client;
 	// create a variable that will hold the layer itself – outside the function - use it to remove the layer later on
 	var earthquakelayer;
 	// create the code to get the Earthquakes data using an XMLHttpRequest
 	function getEarthquakes() {
-	client = new XMLHttpRequest();
-	client.open('GET','https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson');
-	client.onreadystatechange = earthquakeResponse; // don't use earthquakeResponse()
-	client.send();
+		client = new XMLHttpRequest();
+		client.open('GET','https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson');
+		client.onreadystatechange = earthquakeResponse; // don't use earthquakeResponse()
+		client.send();
 	}
 	
 	// create the code to wait for and response the response from the data server
 	function earthquakeResponse() {
 	// listens out for the server to say that the data is ready - i.e. has state 4
-	if (client.readyState == 4) {
+		if (client.readyState == 4) {
 	// once the data is ready, process the data
-	var earthquakedata = client.responseText;
-	loadEarthquakelayer(earthquakedata);}}
+			var earthquakedata = client.responseText;
+			loadEarthquakelayer(earthquakedata);}}
 	
-	// it seems that this variable have already created ? checked it latter
-	var earthquakelayer;
 	// convert the received data - text to JSON format and add it to the map
 	function loadEarthquakelayer(earthquakedata) {
-	// convert the text to JSON
-	var earthquakejson = JSON.parse(earthquakedata);
-	// add the JSON layer onto the map - it will appear using the default icons
-	earthquakelayer = L.geoJson(earthquakejson).addTo(mymap);
-	// change the map zoom so that all the data is shown
-	mymap.fitBounds(earthquakelayer.getBounds());}
+		// convert the text to JSON
+		var earthquakejson = JSON.parse(earthquakedata);
+		// add the JSON layer onto the map - it will appear using the default icons
+		earthquakelayer = L.geoJson(earthquakejson).addTo(mymap);
+		// change the map zoom so that all the data is shown
+		mymap.fitBounds(earthquakelayer.getBounds());}
 	
-	document.addEventListener('DOMContentLoaded', function() {
-	getEarthquakes();}, false);
+	document.addEventListener('DOMContentLoaded', function() 
+	{getEarthquakes();}, false);
 	
 	</script>
 	
