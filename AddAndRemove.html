@@ -20,7 +20,7 @@
 	<!-- the mapid div will hold the map -->
 	<div id="mapid" style="width: 600px; height: 400px;"></div>
 	
-	<button id="loadData" name="loadData" onclick="loadBusStopsData()"> Click here to load the data </button>
+	<button id="loadData" name="loadData" onclick="loadBusStopsData()"> Click here to load the BusStops data </button>
 	<button id="removeBusStopsData" name="removeBusStopsData" 
 	onclick="removeBusStopsData()"> Click here to remove the BusStops data </button>
 
@@ -44,7 +44,7 @@
 
 		function getBusStops() {
 			client = new XMLHttpRequest();
-			client.open('GET','https://developer.cege.ucl.ac.uk:31050/cege0043-week2/busstops.geojson');
+			client.open('GET','https://developer.cege.ucl.ac.uk:31112/cege0043-week2/busstops.geojson');
 			client.onreadystatechange = busstopsResponse;
 			client.send();
 		}
