@@ -22,14 +22,51 @@
 	<button id="loadData" name="loadData" onclick="loadEarthquakeData()"> Click here to load the data </button>
 	
 	<script>
-	function loadEarthquakeData() 
-	{
-		alert("load the data here");
-	}
+	
+		function loadEarthquakeData() 
+		{
+			alert("load the data here");
+		}
+		
+		function loadEarthquakeData() {
+			// call the getEarthquakes code
+			// keep the alert message so that we know something is happening
+			alert("Loading Earthquakes");
+			getEarthquakes();
+		}
+		
+		// create a variable that will hold the XMLHttpRequest()
+		var client;
+		// create the code to get the Earthquakes data using an XMLHttpRequest
+		function getEarthquakes() {
+			client = new XMLHttpRequest();
+			client.open('GET','https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson');
+			client.onreadystatechange = earthquakeResponse; // not earthquakeResponse()
+			client.send();
+		}
+		
+
+		function earthquakeResponse() {
+			if (client.readyState == 4) {
+			var earthquakedata = client.responseText;
+			loadEarthquakelayer(earthquakedata);}
+		}
+		
+		// convert the received data
+		function loadEarthquakelayer(earthquakedata) {
+			// convert the text to JSON
+			var earthquakejson = JSON.parse(earthquakedata);
+			// add the JSON layer onto the map
+			earthquakelayer = L.geoJson(earthquakejson).addTo(mymap);
+			// change the map zoom so that all the data is shown
+			mymap.fitBounds(earthquakelayer.getBounds());
+		}
+
 	</script>
 	
 	<!-- the following script will load the map and set the default view and zoom, as well as loading the basemap tiles -->
 	<script>
+	
 		// load the map
 		var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 		// load the tiles
@@ -41,9 +78,10 @@
 		'Imagery © <a href="http://mapbox.com">Mapbox</a>',
 		id: 'mapbox.streets'
 		}).addTo(mymap);
-		
 
 	</script>
+	
+	
 
 </body>
 </html>
