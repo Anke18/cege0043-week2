@@ -25,10 +25,6 @@
 	onclick="removeEarthquakeData()"> Click here to remove the Earthquake data </button>
 
 	<script>
-	
-		function loadEarthquakeData() {
-			alert("load the data here");
-		}
 		
 		function loadEarthquakeData() {
 			// call the getEarthquakes code
@@ -37,8 +33,12 @@
 			getEarthquakes();
 		}
 		
+		// variable for the earthquake layer, should be GLOBAL
+		var earthquakelayer;
+		
 		function removeEarthquakeData() {
-			alert("remove the earthquake data here");
+			alert("Earthquake data will be removed");
+			mymap.removeLayer( earthquakelayer );
 		}
 		
 		// create a variable that will hold the XMLHttpRequest()
